@@ -1,0 +1,41 @@
+#
+# Main stack definition for syrah
+#
+spack_release: 'v0.17'
+site: scitas
+stack_release: "syrah"
+stack_version: "v1"
+spack_root: /work/proj/spack
+spack_external: external
+spack_source_tree: /work/spack/source/tree
+spack_install_tree: /work/spack/install/tree
+prefix: prefixing
+
+# List of the environments to be managed
+environments:
+  - "phoenix"
+  - "fidis"
+  - "izar"
+
+# default version of compilers mpi and openblas
+default_environment:
+  os: rhel7.7
+  cpu: intel
+  slurm: 20.02.5
+  python:
+    3: 3.8.10
+    2: 2.7.18
+  # compiler contains the arch since it is the highest arch this compiler can
+  # compile for
+  core_compiler: gcc@4.8.5 arch=linux-rhel7-haswell
+  compilers: [gcc]
+  stack_types: [stable]
+  stable:
+    gcc:
+      compiler: "gcc@10.2.0"
+      mpi: "mvapich2 process_managers=slurm fabrics=mrail threads=multiple"
+      blas: "openblas threads=none"
+
+phoenix:
+  os: ubuntu20.04.1
+  core_compiler: gcc@9.3.0 arch=linux-corei7-avx
